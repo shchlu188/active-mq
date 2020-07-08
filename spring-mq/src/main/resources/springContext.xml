@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.scl.mq"/>
+    <bean class="org.apache.activemq.ActiveMQConnectionFactory" id="connectionFactory">
+        <property name="brokerURL" value="tcp://192.168.137.135:61616"/>
+    </bean>
+    <!--TOPIC-->
+    <bean class="org.apache.activemq.command.ActiveMQTopic" id="topic">
+        <constructor-arg index="0" value="topic"/>
+    </bean>
+    <bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="defaultDestination" ref="topic"/>
+        <property name="messageConverter">
+            <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
+        </property>
+    </bean>
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer" id="queueContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="topic"/>
+        <property name="messageListener" ref="queueMessageListener"/>
+    </bean>
+
+    <!--QUEUE-->
+    <bean class="org.apache.activemq.command.ActiveMQQueue" id="queue">
+        <constructor-arg index="0" value="Queue"/>
+    </bean>
+
+    <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="defaultDestination" ref="queue"/>
+        <property name="messageConverter">
+            <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
+        </property>
+    </bean>
+
+
+</beans>
