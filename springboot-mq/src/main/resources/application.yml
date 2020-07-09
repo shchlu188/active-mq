@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-boot-mq-producer
+
+  activemq:
+    broker-url: tcp://192.168.137.135:61616
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: true
+#    pub-sub-domain: false #默认为对列
+
+myQueue: boot-active-mq
+myTopic: boot-active-mq-topic
+

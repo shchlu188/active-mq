@@ -1,0 +1,3 @@
+# Project exclude paths
+/active-mq01/target/
+/spring-mq/target/

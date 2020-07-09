@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
  * @Description
  **********************************/
 public class Consumer01 {
-    private static final String DEFAULT_URL = "tcp://192.168.137.133:61616";
+    private static final String DEFAULT_URL = "tcp://192.168.137.135:61616";
     private static final String DEFAULT_NAME = "QUEUE";
     private static final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(DEFAULT_URL);
     private static Connection connection;
